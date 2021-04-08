@@ -1,15 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="wrap">
+    <div class="user-area">
+      <ul>
+        <li>
+          <userUnit></userUnit>
+        </li>
+      </ul>
+    </div>
+    <guideArea></guideArea>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import guideArea from './components/guideArea.vue'
+import userUnit from './components/userUnit.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    guideArea,
+    userUnit
   }
 }
 </script>
@@ -21,6 +31,31 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  display: table;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.wrap {
+  display: table-cell;
+  vertical-align: middle;
+}
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+}
+.user-area ul {
+  padding: 0;
+  font-size: 0;
+}
+.user-area ul li {
+  display: inline-block;
+  vertical-align: top;
 }
 </style>
