@@ -7,7 +7,7 @@
 <script>
 export default {
 	name: 'guideArea',
-		props: {
+	props: {
 		msg: String
 	}
 }

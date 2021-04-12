@@ -2,12 +2,12 @@
   <div class="wrap">
     <div class="user-area">
       <ul>
-        <li>
-          <userUnit></userUnit>
+        <li v-for="(user, i) in userName" v-bind:key="i">
+          <userUnit v-bind:userName="userName[i]"></userUnit>
         </li>
       </ul>
     </div>
-    <guideArea></guideArea>
+    <guideArea v-bind:userName="userName" v-on:css-usable-trigger="cssUsable = !cssUsable" v-on:js-usable-trigger="jsUsable = !jsUsable"></guideArea>
   </div>
 </template>
 
@@ -17,6 +17,34 @@ import userUnit from './components/userUnit.vue'
 
 export default {
   name: 'App',
+	data() {
+		return {
+			userName: [
+				{
+          name: '박래섭',
+          css: false,
+          js: false
+        },
+				{
+          name: '김소연',
+          css: false,
+          js: false
+        },
+				{
+          name: '김도은',
+          css: false,
+          js: false
+        },
+				{
+          name: '이수현',
+          css: false,
+          js: false
+        },
+			],
+      cssUsable: true,
+      jsUsable: true,
+		}
+	},
   components: {
     guideArea,
     userUnit
@@ -57,5 +85,8 @@ button {
 .user-area ul li {
   display: inline-block;
   vertical-align: top;
+}
+.user-area ul li + li {
+  margin: 0 0 0 10px;
 }
 </style>
