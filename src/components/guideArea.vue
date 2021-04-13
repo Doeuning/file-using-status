@@ -1,6 +1,6 @@
 <template>
 	<div class="guide-area">
-		현재 {{}}님이 {{}}를 사용중입니다.
+		현재 {{user.name}}님이 {{}}를 사용중입니다.
 	</div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
 	name: 'guideArea',
 	props: {
-		msg: String
+		user: null
 	}
 }
 </script>

@@ -3,11 +3,11 @@
     <div class="user-area">
       <ul>
         <li v-for="(user, i) in userName" v-bind:key="i">
-          <userUnit v-bind:userName="userName[i]"></userUnit>
+          <userUnit v-bind:userName="userName[i]" v-bind:cssUsable="cssUsable"></userUnit>
         </li>
       </ul>
     </div>
-    <guideArea v-bind:userName="userName" v-on:css-usable-trigger="cssUsable = !cssUsable" v-on:js-usable-trigger="jsUsable = !jsUsable"></guideArea>
+    <guideArea v-bind:user="user"></guideArea>
   </div>
 </template>
 
@@ -43,11 +43,27 @@ export default {
 			],
       cssUsable: true,
       jsUsable: true,
+      user: {},
 		}
 	},
   components: {
     guideArea,
     userUnit
+  },
+  mounted() { 
+    this.emitter.on('css-usable-trigger', getItem => {
+      this.user = getItem;
+      var getIndex = this.userName.findIndex(function(person) {
+        return person.name == getItem.name;
+      });
+      this.userName.forEach(function(el, i){
+        if (i == getIndex) {
+          el.css = !el.css;
+        }
+      });
+      this.cssUsable = !this.cssUsable;
+      // console.log(this.cssUsable);
+    });
   }
 }
 </script>

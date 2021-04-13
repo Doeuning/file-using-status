@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import firebase from 'firebase'
+import mitt from 'mitt';
 
-
+const emitter = mitt();
 
 const firebaseConfig = {
     apiKey: "AIzaSyCbBolI-lyDLuS9Hz5wsPGd89EwmlDzIvw",
@@ -16,4 +17,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
   
-createApp(App).mount('#app')
+const app = createApp(App);
+app.config.globalProperties.emitter = emitter;
+app.mount('#app');

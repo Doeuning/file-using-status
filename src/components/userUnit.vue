@@ -1,6 +1,6 @@
 <template>
     <div class="user-unit">
-        <div class="user-name">{{ userName.name }}</div>
+        <div class="user-name">{{ userName.name }} {{ userName.css }}</div>
         <button type="button" class="btn" @click=changeCssState v-bind:class="{on: cssState}">common.scss</button>
         <button type="button" class="btn" @click=changeJsState v-bind:class="{on: jsState}">ui-common.js</button>
     </div>
@@ -12,21 +12,19 @@
         data() {
             return {
                 cssState: false,
-                jsState: false
+                jsState: false,
             }
         },
         props : {
-            userName: Array,
+            userName: null,
         },
         methods: {
             changeCssState(){
-                this.cssState = !this.cssState;
-                this.$emit('css-usable-trigger');
+                // if (this.cssUsable) {
+                    this.cssState = !this.cssState;
+                    this.emitter.emit('css-usable-trigger', this.userName);
+                // }
             },
-            changeJsState(){
-                this.jsState = !this.jsState;
-                this.$emit('js-usable-trigger');
-            }
         }
     }
 </script>
