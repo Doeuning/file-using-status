@@ -7,7 +7,11 @@
         </li>
       </ul>
     </div>
-    <guideArea v-bind:user="user"></guideArea>
+    <transition name="fade">
+      <div v-if="!cssUsable || !jsUsable">
+        <guideArea v-bind:user="user" v-bind:cssName="cssName" v-bind:jsName="jsName"></guideArea>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -44,6 +48,8 @@ export default {
       cssUsable: true,
       jsUsable: true,
       user: {},
+      cssName: null,
+      jsName: null,
 		}
 	},
   components: {
@@ -51,10 +57,12 @@ export default {
     userUnit
   },
   mounted() { 
-    this.emitter.on('css-usable-trigger', getItem => {
-      this.user = getItem;
+    this.emitter.on('css-usable-trigger', (getItem) => {
+      this.user = getItem[0];
+      this.cssName = getItem[1];
+      this.jsName = getItem[2];
       var getIndex = this.userName.findIndex(function(person) {
-        return person.name == getItem.name;
+        return person.name == getItem[0].name;
       });
       this.userName.forEach(function(el, i){
         if (i == getIndex) {
@@ -62,7 +70,6 @@ export default {
         }
       });
       this.cssUsable = !this.cssUsable;
-      // console.log(this.cssUsable);
     });
   }
 }
@@ -104,5 +111,11 @@ button {
 }
 .user-area ul li + li {
   margin: 0 0 0 10px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
