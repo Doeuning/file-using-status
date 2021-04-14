@@ -20,12 +20,25 @@
         props : {
             userName: null,
             cssUsable: null,
+            jsUsable: null,
         },
         methods: {
             changeCssState(){
-                if (this.cssUsable) {
+                if (this.userName.css) {
+                    this.cssState = false;
+                    this.emitter.emit('css-usable-trigger', [this.userName, this.cssName, this.jsName]);
+                } else if (this.cssUsable) {
                     this.cssState = !this.cssState;
                     this.emitter.emit('css-usable-trigger', [this.userName, this.cssName, this.jsName]);
+                }
+            },
+            changeJsState(){
+                if (this.userName.js) {
+                    this.jsState = false;
+                    this.emitter.emit('js-usable-trigger', [this.userName, this.jsName, this.jsName]);
+                } else if (this.jsUsable) {
+                    this.jsState = !this.jsState;
+                    this.emitter.emit('js-usable-trigger', [this.userName, this.jsName, this.jsName]);
                 }
             },
         }
