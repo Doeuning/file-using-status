@@ -9,7 +9,7 @@
     </div>
     <transition name="fade">
       <div v-if="!cssUsable || !jsUsable">
-        <guideArea v-bind:user="user" v-bind:cssName="cssName" v-bind:jsName="jsName"></guideArea>
+        <guideArea v-bind:cssUser="cssUser" v-bind:jsUser="jsUser" v-bind:cssName="cssName" v-bind:jsName="jsName"></guideArea>
       </div>
     </transition>
   </div>
@@ -47,7 +47,8 @@ export default {
 			],
       cssUsable: true,
       jsUsable: true,
-      user: {},
+      cssUser: {},
+      jsUser: {},
       cssName: null,
       jsName: null,
 		}
@@ -58,7 +59,7 @@ export default {
   },
   mounted() {
     this.emitter.on('css-usable-trigger', (getItem) => {
-      this.user = getItem[0];
+      this.cssUser = getItem[0];
       this.cssName = getItem[1];
       this.jsName = getItem[2];
       var getIndex = this.userName.findIndex(function(person) {
@@ -72,7 +73,7 @@ export default {
       this.cssUsable = !this.cssUsable;
     });
     this.emitter.on('js-usable-trigger', (getItem) => {
-      this.user = getItem[0];
+      this.jsUser = getItem[0];
       this.jsName = getItem[1];
       this.jsName = getItem[2];
       var getIndex = this.userName.findIndex(function(person) {

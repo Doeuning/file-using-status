@@ -1,6 +1,11 @@
 <template>
 	<div class="guide-area">
-		현재 <span>{{user.name}}</span>님이 <span v-if="user.css">{{cssName}}</span> <span v-if="user.js">{{jsName}}</span>를 사용중입니다.
+		<div v-if="cssUser.css">
+			현재 <span>{{cssUser.name}}</span>님이 <span>{{cssName}}</span>를 사용중입니다.
+		</div>
+		<div v-if="jsUser.js">
+			현재 <span>{{jsUser.name}}</span>님이 <span>{{jsName}}</span>를 사용중입니다.
+		</div>
 	</div>
 </template>
 
@@ -8,7 +13,8 @@
 export default {
 	name: 'guideArea',
 	props: {
-		user: null,
+		cssUser: null,
+		jsUser: null,
 		cssName: null,
 		jsName: null,
 	},
